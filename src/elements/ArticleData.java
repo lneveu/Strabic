@@ -10,17 +10,17 @@ public class ArticleData {
     private String author;
     private String url_article;
     private String url_season;
-    private String url_image;
+    private String thumbnail;
     private String filename;
 
 
-    public ArticleData(String name, String title, String author, String url_article, String url_season, String url_image, String filename) {
+    public ArticleData(String name, String title, String author, String url_article, String url_season, String thumbnail, String filename) {
         this.name = name;
         this.title = title;
         this.author = author;
         this.url_article = url_article;
         this.url_season = url_season;
-        this.url_image = url_image;
+        this.thumbnail = thumbnail;
         this.filename = filename;
     }
 
@@ -44,7 +44,7 @@ public class ArticleData {
         return url_season;
     }
 
-    public String getUrl_image() { return  url_image; }
+    public String getThumbnail() { return  thumbnail; }
 
     public String getFilename() {
         return filename;
@@ -58,7 +58,7 @@ public class ArticleData {
                 ", author='" + author + '\'' +
                 ", url_article='" + url_article + '\'' +
                 ", url_season='" + url_season + '\'' +
-                ", url_image='" + url_image + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
                 ", filename='" + filename + '\'' +
                 '}';
     }

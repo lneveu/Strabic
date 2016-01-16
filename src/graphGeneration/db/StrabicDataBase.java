@@ -163,6 +163,7 @@ public class StrabicDataBase {
 				if ((id_document >=0) && (id_document < maxEntry)){
 					//String[] ss =fichier.split("/");
 					//documents[id_document] = ss[ss.length-1];
+					documents[id_document] = GenGraphs.urlImage+fichier;
 				}
 				//				int id_objet  = rs.getInt("id_objet");
 				//				System.out.println("id_objet :" + id_objet);
@@ -280,9 +281,9 @@ public class StrabicDataBase {
 						no.setURL(urls[id_article]);
 						no.setURLend(urlsEnd[id_article]);
 
-						// build url image
+						// build thumbnail name
 						String urlImage = no.getURLend().trim().replace('/', '_');
-						no.setUrlImage(GenGraphs.imgFolder + urlImage + GenGraphs.imgExtension);
+						no.setThumbnail(GenGraphs.thumbFolder + urlImage + GenGraphs.thumbExtension);
 					}
 					if ((id_rubrique >=0) && (id_rubrique < maxEntry)){
 						no.setUrlSaison(urlsSaison[id_rubrique]);

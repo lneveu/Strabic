@@ -35,8 +35,9 @@ public class GenGraphs {
 	static private final boolean debug = true;
 
 	static public final String urlStrabic = "http://strabic.fr/";
-	static public final String imgFolder = "data/img/";
-    static public final String imgExtension = ".png";
+    static public final String urlImage = urlStrabic + "IMG/";
+    static public final String thumbFolder = "data/img/";
+    static public final String thumbExtension = ".png";
     static public final String strabicDBPath = "data/strabic_fr_20150203.sqlite";
 	static private String skosFile ="data/tmp/temp.skos";
 	static private String storageFile = "data/tmp/temp.data";

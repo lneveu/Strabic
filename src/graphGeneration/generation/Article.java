@@ -29,7 +29,7 @@ public class Article {
 	private String rawSurTitre = null;
 	private String chapo = null;
 	private String date = null;
-	private String urlImage = null;
+	private String thumbnail = null;
 	private String filename = null;
 	private List<String> rawAuthors = null;
 	private List<String> keywordsURI= null; //concepts or data URI, official keywords
@@ -63,7 +63,7 @@ public class Article {
 		outs = outs + "saison: " + getSaison() + "\n";
 		outs = outs + "titre: " + getTitre() + "\n";
 		outs = outs + "URL: " + getURL() + "\n";
-		outs = outs + "Url image: " + getUrlImage() + "\n";
+		outs = outs + "Url image: " + getThumbnail() + "\n";
 		len = getKeywords().size();
 		for (i=0;i<len;i++){
 			outs = outs + "keyword: " + getKeywords().get(i) + "\n";
@@ -97,7 +97,7 @@ public class Article {
 				} else if ("text".equals(cname)){
 					setText(c.getTextContent());
 				} else if ("image".equals(cname)){
-					setUrlImage(c.getTextContent().trim());
+					setThumbnail(c.getTextContent().trim());
 				} else if ("keyword".equals(cname)){
 					String val1 = getAttValue(c,"rdf:about");
 					if (val1 != null) getKeywords().add(val1);
@@ -152,7 +152,7 @@ public class Article {
 		getNodeXML().appendChild(ncn);
 		
 		ncn = cdoc.createElement("urlImage");
-		ncn.setTextContent(getUrlImage());
+		ncn.setTextContent(getThumbnail());
 		getNodeXML().appendChild(ncn);
 		
 		ncn = cdoc.createElement("URL");
@@ -232,12 +232,12 @@ public class Article {
 		this.saison = saison.replace(' ', '_');
 	}
 
-	public String getUrlImage() {
-		return urlImage;
+	public String getThumbnail() {
+		return thumbnail;
 	}
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 
 	public List<String> getKeywords() {

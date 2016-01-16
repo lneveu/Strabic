@@ -49,14 +49,14 @@ public class BuildGraph {
 			String na = r1.getFilePath();
 			String[] ns = na.split("/");
 			Article art  = GenGraphs.getAllEntries().searchArticle(na);
-			String urlImage="";
+			String thumbnail="";
 			String titre="";
 			String auteur="";
 			String url="";
 			String urlSaison="";
 			String filename ="";
 			if (art != null){
-				urlImage = art.getUrlImage();
+                thumbnail = art.getThumbnail();
 				titre = art.getTitre().replace('_',' ');
 				url = art.getURL();
 				urlSaison = art.getUrlSaison();
@@ -72,17 +72,17 @@ public class BuildGraph {
 			}
 
 
-            ArticleData art_data1 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, urlImage, filename);
+            ArticleData art_data1 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, thumbnail, filename);
             LayoutData lay_data1 = new LayoutData();
             node1.setProperty("article_data", art_data1);
             node1.setProperty("layout_data", lay_data1);
 
-            ArticleData art_data2 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, urlImage, filename);
+            ArticleData art_data2 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, thumbnail, filename);
             LayoutData lay_data2 = new LayoutData();
             node2.setProperty("article_data", art_data2);
             node2.setProperty("layout_data", lay_data2);
 
-            ArticleData art_data3 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, urlImage, filename);
+            ArticleData art_data3 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, thumbnail, filename);
             LayoutData lay_data3 = new LayoutData();
             node3.setProperty("article_data", art_data3);
             node3.setProperty("layout_data", lay_data3);
@@ -113,7 +113,7 @@ public class BuildGraph {
 			node3.setProperty("saison", urlSaison);
 			node3.setProperty("filename", filename);
             */
-			System.out.println("Adding node: " + ns[ns.length - 1] + " " + urlImage);
+			System.out.println("Adding node: " + ns[ns.length - 1] + " " + thumbnail);
 		}
 		nbe = 0;
 		//Concept
