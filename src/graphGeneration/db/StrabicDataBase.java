@@ -73,8 +73,6 @@ public class StrabicDataBase {
 	static Pattern patternInteger = Pattern.compile("([0-9])+");
 	static int breveNumber = -1;
 	static int livreNumber = -1;
-	static File logImage = new File("logImages.txt");
-	static PrintStream outImages =  null;
 
 	public static void importDB() {
 		Connection c = null;
@@ -84,15 +82,6 @@ public class StrabicDataBase {
 		//if(!f.exists() ||f.isDirectory()) { 
 		//	strabic.strabicDBPath = MainFrame.selectFile(strabic.articlegui, false, "Give the DB File");
 		//}
-		try {
-			outImages = new PrintStream(logImage, "UTF-8");
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		for (int k=0;k<maxEntry;k++){
 			saisons[k]="pas_de_saison";
@@ -174,7 +163,6 @@ public class StrabicDataBase {
 				if ((id_document >=0) && (id_document < maxEntry)){
 					//String[] ss =fichier.split("/");
 					//documents[id_document] = ss[ss.length-1];
-					documents[id_document] = GenGraphs.urlImage+fichier;
 				}
 				//				int id_objet  = rs.getInt("id_objet");
 				//				System.out.println("id_objet :" + id_objet);
@@ -291,18 +279,15 @@ public class StrabicDataBase {
 					if ((id_article >=0) && (id_article < maxEntry)){
 						no.setURL(urls[id_article]);
 						no.setURLend(urlsEnd[id_article]);
+
+						// build url image
+						String urlImage = no.getURLend().trim().replace('/', '_');
+						no.setUrlImage(GenGraphs.imgFolder + urlImage + GenGraphs.imgExtension);
 					}
 					if ((id_rubrique >=0) && (id_rubrique < maxEntry)){
 						no.setUrlSaison(urlsSaison[id_rubrique]);
 						System.out.println("Article id: "+id_article+" Rubrique id: "+ id_rubrique);
 						System.out.println("ARTICLE: "+urls[id_article]+" RUBRIQUE: "+ urlsSaison[id_rubrique]);
-					}
-					int idImage = findAuteurImageId(image_une);
-					if ((idImage >=0) && (idImage < maxEntry)){
-						no.setImage(documents[idImage]);
-						outImages.println(no.getImage());
-					} else {
-						no.setImage(GenGraphs.urlImage);
 					}
 					if (listMatches != null){
 						for(int s : listMatches){
@@ -332,7 +317,6 @@ public class StrabicDataBase {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	outImages.close();
 }
 
 	public static String html2text(String html) {

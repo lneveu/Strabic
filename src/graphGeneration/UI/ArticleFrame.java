@@ -329,7 +329,7 @@ public class ArticleFrame extends JFrame implements ActionListener ,ItemListener
 		if (no.getSaison() != null) saison.setText(no.getSaison());
 		if (no.getTitre() != null) titre.setText(no.getTitre());
 		if (no.getURL() != null) URL.setText(no.getURL());
-		if (no.getImage() != null) image.setText(no.getImage());
+		if (no.getUrlImage() != null) image.setText(no.getUrlImage());
 		if (no.getText() != null) textConsole.setText(no.getText());
 		setKeywordList(keywordList,no);
 		setFoundList(foundList,no);
@@ -404,7 +404,7 @@ public class ArticleFrame extends JFrame implements ActionListener ,ItemListener
 			String ti =  articleList.getSelectedItem();
 			Article no = GenGraphs.getAllEntries().searchArticle(ti);
 			if (no == null) return;
-			no.setImage(image.getText());
+			no.setUrlImage(image.getText());
 			no.setNeedUpdate(true);
 		} else if (source == updateURL){
 			String ti =  articleList.getSelectedItem();
@@ -435,7 +435,7 @@ public class ArticleFrame extends JFrame implements ActionListener ,ItemListener
 			no.setTitre(titre.getText());
 			no.setSaison(saison.getText());
 			no.setURL(URL.getText());
-			no.setImage(image.getText());
+			no.setUrlImage(image.getText());
 			no.setText(textConsole.getText());
 			setChoiceList(articleList);
 			articleList.select(no.getTitre());

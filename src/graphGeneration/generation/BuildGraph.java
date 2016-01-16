@@ -39,14 +39,14 @@ public class BuildGraph {
 			String na = r1.getFilePath();
 			String[] ns = na.split("/");
 			Article art  = GenGraphs.getAllEntries().searchArticle(na);
-			String image="";
+			String urlImage="";
 			String titre="";
 			String auteur="";
 			String url="";
 			String urlSaison="";
 			String filename ="";
 			if (art != null){
-				image = art.getImage();
+				urlImage = art.getUrlImage();
 				titre = art.getTitre().replace('_',' ');
 				url = art.getURL();
 				urlSaison = art.getUrlSaison();
