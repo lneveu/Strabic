@@ -98,7 +98,7 @@ public class BuildGraph {
 			node1.setProperty("filename", filename);
 
 			node2.setProperty("name", ns[ns.length - 1]);
-			node2.setProperty("image", image);
+			node2.setProperty("image", urlImage);
 			node2.setProperty("titre", titre);
 			node2.setProperty("auteur", auteur);
 			node2.setProperty("url", url);
@@ -106,14 +106,14 @@ public class BuildGraph {
 			node2.setProperty("filename", filename);
 
 			node3.setProperty("name", ns[ns.length - 1]);
-			node3.setProperty("image", image);
+			node3.setProperty("image", urlImage);
 			node3.setProperty("titre", titre);
 			node3.setProperty("auteur", auteur);
 			node3.setProperty("url", url);
 			node3.setProperty("saison", urlSaison);
 			node3.setProperty("filename", filename);
-
-			System.out.println("Adding node: " + ns[ns.length - 1] + " " + image);
+            */
+			System.out.println("Adding node: " + ns[ns.length - 1] + " " + urlImage);
 		}
 		nbe = 0;
 		//Concept
@@ -127,8 +127,10 @@ public class BuildGraph {
 						Vertex n1 = getKeywordsGraph().getVertex(r1);
 						Vertex n2 = getKeywordsGraph().getVertex(r2);
 						Edge e1 = getKeywordsGraph().addEdge(null,n1, n2, Integer.toString(score));
-						//Edge e2 = getKeywordsGraph().addEdge(null,n2, n1, Integer.toString(score));
-						System.out.println("Adding edge between: " + n1.getProperty("name")+ " --> " +n2.getProperty("name") + " val : " + score  );
+                        //Edge e2 = getKeywordsGraph().addEdge(null,n2, n1, Integer.toString(score));
+                        ArticleData a1 = (ArticleData) n1.getProperty("article_data");
+                        ArticleData a2 = (ArticleData) n2.getProperty("article_data");
+						System.out.println("Adding edge between: " + a1.getName() + " --> " + a2.getName() + " val : " + score  );
 						nbe++;
 					}
 				}
@@ -148,8 +150,6 @@ public class BuildGraph {
 					Vertex n1 = getAuteurGraph().getVertex(r1);
 					Vertex n2 = getAuteurGraph().getVertex(r2);
 					Edge e1 = getAuteurGraph().addEdge(null,n1, n2, Integer.toString(score));
-					//Edge e2 = getAuteurGraph().addEdge(null,n2, n1, Integer.toString(score));
-					//System.out.println("Adding edge between: " + n1.getProperty("name")+ " --> " +n2.getProperty("name") + " val : " + score  );
 					nbe++;
 				}
 			}
@@ -165,8 +165,6 @@ public class BuildGraph {
 					Vertex n1 = getSaisonGraph().getVertex(r1);
 					Vertex n2 = getSaisonGraph().getVertex(r2);
 					Edge e1 = getSaisonGraph().addEdge(null,n1, n2, "");
-					//Edge e2 = getSaisonGraph().addEdge(null,n2, n1, "");
-					//System.out.println("Adding edge between: " + n1.getProperty("name")+ " --> " +n2.getProperty("name"));
 					nbe++;
 				}
 			}
