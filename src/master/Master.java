@@ -2,6 +2,7 @@ package master;
 
 import graphGeneration.generation.GenGraphs;
 
+import mapGeneration.GenMaps;
 import java.io.IOException;
 
 /**
@@ -12,5 +13,30 @@ public class Master {
     public static void main(String[] args) throws IOException {
         // generate graphs
         GenGraphs.execute();
+
+        // algo layout
+        GenMaps.execute();
+
+        // frame test
+        new UITest();
+
+        /*
+        Graph g = GenGraphs.getSaisonGraph();
+
+        for(Vertex i : g.getVertices()) {
+            LayoutData d = (LayoutData) i.getProperty("layout_data");
+            System.out.println("x: " + d.getX() + "- y: " + d.getY());
+        }
+        */
+
+        /*
+        for(Vertex i : g.getVertices()) {
+            for(String k : i.getPropertyKeys()) {
+                System.out.println(i.getProperty(k));
+            }
+            System.out.println("\n");
+        }
+        */
+
     }
 }
