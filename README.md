@@ -24,5 +24,11 @@ Fichiers txt articles : data/articles/
 - Génération des fichiers graphml
 - Génération des fichiers txt contenant le "corps" des articles
 
+## Génération des maps
+(package 'mapGeneration')
+
+- Application de l'algorithme de placement
+- Génération de la vue HTML représentant la map [TODO]
+
 
 
