@@ -17,6 +17,7 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import com.tinkerpop.blueprints.Graph;
 import graphGeneration.UI.ArticleFrame;
 import graphGeneration.UI.HtmlFrame;
 import graphGeneration.UI.MainFrame;
@@ -102,8 +103,33 @@ public class GenGraphs {
 	}
 
 	public static void generateGraph(String path){
-		new BuildGraph(path);
+		BuildGraph.build(path);
 	}
+
+    // Graph accessors
+    /**
+     * Get "SaisonGraph"
+     * @return tinkerpop graph
+     */
+    public static Graph getSaisonGraph() {
+        return BuildGraph.getSaisonGraph();
+    }
+
+    /**
+     * Get "AuteurGraph"
+     * @return tinkerpop graph
+     */
+    public static Graph getAuteurGraph() {
+        return BuildGraph.getAuteurGraph();
+    }
+
+    /**
+     * Get "KeywordsGraph"
+     * @return tinkerpop graph
+     */
+    public static Graph getKeywordsGraph() {
+        return BuildGraph.getKeywordsGraph();
+    }
 
 	public static String checkXMLFile(){
 		return getAllEntries().check();

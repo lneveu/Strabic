@@ -13,21 +13,31 @@ import com.tinkerpop.blueprints.Vertex;
 import com.tinkerpop.blueprints.impls.tg.TinkerGraph;
 import com.tinkerpop.blueprints.util.io.graphml.GraphMLTokens;
 import com.tinkerpop.blueprints.util.io.graphml.GraphMLWriter;
+import elements.ArticleData;
+import elements.LayoutData;
 import graphGeneration.analyse.FileAnalysisResult;
 import graphGeneration.analyse.PdfTextAnalysis;
 import graphGeneration.generation.Article;
 import graphGeneration.generation.GenGraphs;
 
+/**
+ * Build graphs based on analysis results and export them to graphml files
+ */
 public class BuildGraph {
-	Graph keywordsGraph = new TinkerGraph();
-	final static String keywordsGraph_Prefix = "_KW";
-	Graph saisonGraph = new TinkerGraph();
-	final static String saisonGraph_Prefix = "_SAISON";
-	Graph auteurGraph = new TinkerGraph();
-	final static String auteurGraph_Prefix = "_AUTEUR";
-	final int scoreMinKW = 1;
+	private static Graph keywordsGraph = new TinkerGraph();
+	private final static String keywordsGraph_Prefix = "_KW";
 
-	public BuildGraph(String filepathsmane){
+	private static Graph saisonGraph = new TinkerGraph();
+	private final static String saisonGraph_Prefix = "_SAISON";
+
+	private static Graph auteurGraph = new TinkerGraph();
+	private final static String auteurGraph_Prefix = "_AUTEUR";
+
+	private static final int scoreMinKW = 1;
+
+    private BuildGraph() {}
+
+	public static void build(String filepathsmane){
 		int nbe = 0;
 		System.out.println("BuildGraph number of files: " + PdfTextAnalysis.getResults().size());
 
@@ -60,8 +70,27 @@ public class BuildGraph {
 					}
 				}
 			}
+
+
+            ArticleData art_data1 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, urlImage, filename);
+            LayoutData lay_data1 = new LayoutData();
+            node1.setProperty("article_data", art_data1);
+            node1.setProperty("layout_data", lay_data1);
+
+            ArticleData art_data2 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, urlImage, filename);
+            LayoutData lay_data2 = new LayoutData();
+            node2.setProperty("article_data", art_data2);
+            node2.setProperty("layout_data", lay_data2);
+
+            ArticleData art_data3 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, urlImage, filename);
+            LayoutData lay_data3 = new LayoutData();
+            node3.setProperty("article_data", art_data3);
+            node3.setProperty("layout_data", lay_data3);
+
+
+            /*
 			node1.setProperty("name", ns[ns.length - 1]);
-			node1.setProperty("image", image);
+			node1.setProperty("image", urlImage);
 			node1.setProperty("titre", titre);
 			node1.setProperty("auteur", auteur);
 			node1.setProperty("url", url);
@@ -166,7 +195,7 @@ public class BuildGraph {
 		}
 	}
 
-	public static void writeXMLGraph(Graph g, String filepathsmane) throws IOException{
+	private static void writeXMLGraph(Graph g, String filepathsmane) throws IOException{
 		OutputStream so = null;
 		File f = new File(filepathsmane);
 		so = new FileOutputStream(f);
@@ -180,23 +209,15 @@ public class BuildGraph {
 		so.close();
 	}
 
-	public Graph getKeywordsGraph() {
+	protected static Graph getKeywordsGraph() {
 		return keywordsGraph;
 	}
 
-	public Graph getSaisonGraph() {
+    protected static Graph getSaisonGraph() {
 		return saisonGraph;
 	}
 
-	public void setSaisonGraph(Graph saisonGraph) {
-		this.saisonGraph = saisonGraph;
-	}
-
-	public Graph getAuteurGraph() {
+	protected static Graph getAuteurGraph() {
 		return auteurGraph;
-	}
-
-	public void setAuteurGraph(Graph auteurGraph) {
-		this.auteurGraph = auteurGraph;
 	}
 }
