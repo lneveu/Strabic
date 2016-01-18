@@ -15,12 +15,12 @@ import java.util.List;
 public class FruchtermanReingold implements LayoutAlgorithm {
 
     private static final float SPEED_DIVISOR = 100;
-    private static final float AREA_MULTIPLICATOR = 1000;
+    private static final float AREA_MULTIPLICATOR = 10000;
 
     // Default properties
     private float speed = 5;
-    private float gravity = 10;
-    private float area = 500;
+    private float gravity = 5;
+    private float area = 4000;
 
     @Override
     public void apply(Graph graph, int iteration) {

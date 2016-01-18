@@ -73,17 +73,17 @@ public class BuildGraph {
 
 
             ArticleData art_data1 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, thumbnail, filename);
-            LayoutData lay_data1 = new LayoutData();
+            LayoutData lay_data1 = new LayoutData(0,0,10);
             node1.setProperty("article_data", art_data1);
             node1.setProperty("layout_data", lay_data1);
 
             ArticleData art_data2 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, thumbnail, filename);
-            LayoutData lay_data2 = new LayoutData();
+            LayoutData lay_data2 = new LayoutData(0,0,10);
             node2.setProperty("article_data", art_data2);
             node2.setProperty("layout_data", lay_data2);
 
             ArticleData art_data3 = new ArticleData(ns[ns.length - 1], titre, auteur, url, urlSaison, thumbnail, filename);
-            LayoutData lay_data3 = new LayoutData();
+            LayoutData lay_data3 = new LayoutData(0,0,10);
             node3.setProperty("article_data", art_data3);
             node3.setProperty("layout_data", lay_data3);
 

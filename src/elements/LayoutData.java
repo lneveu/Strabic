@@ -15,10 +15,10 @@ public class LayoutData {
     private float dy;
     private float dz;
 
-    public LayoutData() {
-        this.x = 0;
-        this.y = 0;
-        this.z = 0;
+    public LayoutData(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
         this.dx = 0;
         this.dy = 0;
         this.dz = 0;
