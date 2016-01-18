@@ -1,5 +1,8 @@
 package master;
 
+import com.tinkerpop.blueprints.Graph;
+import com.tinkerpop.blueprints.Vertex;
+import elements.LayoutData;
 import graphGeneration.generation.GenGraphs;
 
 import mapGeneration.GenMaps;
@@ -17,17 +20,14 @@ public class Master {
         // algo layout
         GenMaps.execute();
 
-        // frame test
-        new UITest();
-
-        /*
         Graph g = GenGraphs.getSaisonGraph();
-
-        for(Vertex i : g.getVertices()) {
+        // frame test
+        new UITest(g);
+        /*for(Vertex i : g.getVertices()) {
             LayoutData d = (LayoutData) i.getProperty("layout_data");
-            System.out.println("x: " + d.getX() + "- y: " + d.getY());
-        }
-        */
+            System.out.println("x: " + d.getX() + " - y: " + d.getY());
+        }*/
+
 
         /*
         for(Vertex i : g.getVertices()) {

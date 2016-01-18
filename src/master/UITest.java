@@ -14,8 +14,11 @@ import java.awt.geom.Line2D;
  */
 public class UITest extends JFrame {
 
-    public UITest() {
+    private Graph graph;
+
+    public UITest(Graph graph) {
         super();
+        this.graph = graph;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.getContentPane().add(new GraphPanel());
         this.setSize(900,900);
@@ -32,7 +35,6 @@ public class UITest extends JFrame {
             g2.setColor(Color.black);
             g2.setStroke(new BasicStroke(5));
 
-            Graph graph = GenGraphs.getSaisonGraph();
             for(Vertex i : graph.getVertices()) {
                 LayoutData d = (LayoutData) i.getProperty("layout_data");
                 g2.draw(new Line2D.Float(d.getX(),  d.getY(), d.getX(),  d.getY()));
