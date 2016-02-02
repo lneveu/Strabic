@@ -1,5 +1,6 @@
 package master;
 
+import articleGeneration.GenArticles;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
 import elements.LayoutData;
@@ -18,11 +19,11 @@ public class Master {
         GenGraphs.execute();
 
         // algo layout
-        GenMaps.execute();
+        //GenMaps.execute();
 
-        Graph g = GenGraphs.getSaisonGraph();
+        //Graph g = GenGraphs.getSaisonGraph();
         // frame test
-        new UITest(g);
+        //new UITest(g);
         /*for(Vertex i : g.getVertices()) {
             LayoutData d = (LayoutData) i.getProperty("layout_data");
             System.out.println("x: " + d.getX() + " - y: " + d.getY());
@@ -37,6 +38,8 @@ public class Master {
             System.out.println("\n");
         }
         */
+
+        GenArticles.execute();
 
     }
 }
