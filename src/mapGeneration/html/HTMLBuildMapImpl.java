@@ -42,8 +42,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         // write buffer in a file
         BufferedWriter out = null;
         try {
-            System.out.println("buffer content : " + HTMLString.toString());
-            System.out.println("file : " + OUPUT_DIRECTORY + filename);
+            System.out.println("Written graph HTML file : " + OUPUT_DIRECTORY + filename);
 
             FileWriter fstream = new FileWriter(OUPUT_DIRECTORY + filename);
             out = new BufferedWriter(fstream);
@@ -112,8 +111,6 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //System.out.println("prologueFile: " + RESOURCES_FOLDER + PROLOGUE);
-        //System.out.println("prologue: " + content);
         HTMLString.append(content);
     }
 

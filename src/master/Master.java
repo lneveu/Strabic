@@ -1,9 +1,6 @@
 package master;
 
 import articleGeneration.GenArticles;
-import com.tinkerpop.blueprints.Graph;
-import com.tinkerpop.blueprints.Vertex;
-import elements.LayoutData;
 import graphGeneration.generation.GenGraphs;
 
 import mapGeneration.GenMaps;
@@ -22,7 +19,7 @@ public class Master {
         GenMaps.execute();
 
         // generate HTML file for earch article
-        //GenArticles.execute();
+        GenArticles.execute();
 
         // frame test
         new UITest(GenGraphs.getSaisonGraph());

@@ -5,10 +5,7 @@ import graphGeneration.generation.Article;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**

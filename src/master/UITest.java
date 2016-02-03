@@ -3,7 +3,6 @@ package master;
 import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
 import elements.LayoutData;
-import graphGeneration.generation.GenGraphs;
 
 import javax.swing.*;
 import java.awt.*;

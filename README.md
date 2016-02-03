@@ -12,8 +12,17 @@ Librairies externes :
 
 
 BDD : data/strabic_fr_20150203.sqlite
+
 Fichiers graphml : data/tmp/
+
 Fichiers txt articles : data/articles/
+
+## Master
+(point d'entrée du programme)
+
+- Crée les graphs
+- Génère les maps (format HTML)
+- Génère les articles (format HTML)
 
 ## Génération des graphs
 (package 'graphGeneration')
@@ -22,13 +31,18 @@ Fichiers txt articles : data/articles/
 - Analyse conceptuelle des articles
 - Création des graphs
 - Génération des fichiers graphml
-- Génération des fichiers txt contenant le "corps" des articles
+- Génération des fichiers txt contenant le "corps" des articles (facultatif)
 
 ## Génération des maps
 (package 'mapGeneration')
 
-- Application de l'algorithme de placement
-- Génération de la vue HTML représentant la map [TODO]
+- Application de l'algorithme de placement sur chaque graph
+- Génération des maps (HTML) à partir de chaque graph (rép. destination: data/maps)
+
+## Génération des articles
+(package 'articleGeneration')
+
+- Génération des articles (HTML) à partir de chaque articles de la base (rép. destination data/articles)
 
 
 
