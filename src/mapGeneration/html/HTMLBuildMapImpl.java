@@ -4,6 +4,7 @@ import com.tinkerpop.blueprints.Graph;
 import com.tinkerpop.blueprints.Vertex;
 import elements.ArticleData;
 import elements.LayoutData;
+import org.apache.commons.lang.StringUtils;
 import utils.Utils;
 
 import java.io.*;
@@ -22,6 +23,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
     private static final String OUPUT_DIRECTORY = "data/maps/";
 
     private static final String TITLE_POSITION[] = {"top-right", "top-left", "bottom-right", "bottom-left"};
+    private static final Integer LEN_MAX_TITLE = 25;
     private Random rand = new Random();
 
     StringBuilder HTMLString = null;
@@ -99,7 +101,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         HTMLString.append(TITLE_POSITION[rand.nextInt(4)]);
         HTMLString.append("\">");
 
-        HTMLString.append(data_article.getTitle());
+        HTMLString.append(StringUtils.abbreviate(data_article.getTitle(),LEN_MAX_TITLE));
         HTMLString.append("</div>");
 
         // end container
