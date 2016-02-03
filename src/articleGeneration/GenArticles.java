@@ -6,7 +6,8 @@ import graphGeneration.generation.GenGraphs;
 import java.util.List;
 
 /**
- * Created by Arno on 02/02/2016.
+ * Generate HTML articles
+ * @author Arno Simon
  */
 public class GenArticles {
 
@@ -15,10 +16,10 @@ public class GenArticles {
         HTMLBuildArticle build = new HTMLBuildArticleImpl();
         List<Article> articles = GenGraphs.getAllEntries().getArticlelist();
 
-
+        // build html view for each article
         for(Article a : articles)
         {
-            build.create(a);break;
+            build.create(a);
         }
     }
 }

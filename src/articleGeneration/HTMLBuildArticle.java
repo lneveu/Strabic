@@ -3,7 +3,8 @@ package articleGeneration;
 import graphGeneration.generation.Article;
 
 /**
- * Created by Arno on 02/02/2016.
+ * HTML Builder interface
+ * @author Arno Simon
  */
 public interface HTMLBuildArticle {
 

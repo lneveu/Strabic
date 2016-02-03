@@ -3,9 +3,17 @@ package articleGeneration;
 import graphGeneration.generation.Article;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
- * Created by Arno on 02/02/2016.
+ * Implementation of a HTML builder for articles
+ * @author Arno Simon
  */
 public class HTMLBuildArticleImpl implements HTMLBuildArticle{
 
@@ -13,18 +21,53 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
     private static final String CSS_FOLDER = "../../resources/html/css/";
     private static final String JS_FOLDER = "../../resources/html/js/";
 
+    // Patterns
+    private static Pattern p_div1 = Pattern.compile("<div.*>",Pattern.MULTILINE);
+    private static Pattern p_div2 = Pattern.compile("</div>",Pattern.MULTILINE);
+    private static Pattern p_br = Pattern.compile("<br\\s?/?>",Pattern.MULTILINE);
+    private static Pattern p_ytb = Pattern.compile("<youtube.*>",Pattern.MULTILINE);
+    private static Pattern p_noteimage = Pattern.compile("<note-image\\d*>",Pattern.MULTILINE);
+    private static Pattern p_notegallerie = Pattern.compile("<note-galerie\\d*>",Pattern.MULTILINE);
+    private static Pattern p_album = Pattern.compile("<album.*>",Pattern.MULTILINE);
+    private static Pattern p_notebas = Pattern.compile("\\[\\[.*\\]\\]",Pattern.MULTILINE);
+    private static Pattern p_chapo = Pattern.compile("<chapo>\n?(.*?)</chapo>",Pattern.MULTILINE);
+    private static Pattern p_quote = Pattern.compile("<quote>\n?(.*?)</quote>",Pattern.MULTILINE);
+    private static Pattern p_poesie = Pattern.compile("<poesie>\n?(.*?)</poesie>",Pattern.MULTILINE);
+    private static Pattern p_image = Pattern.compile("<image=(http://.*?)>",Pattern.MULTILINE);
+    private static Pattern p_iframe = Pattern.compile("<iframe.*?src=\"(.*?)\".*?>.*?</iframe>",Pattern.MULTILINE);
+    private static Pattern p_notetext = Pattern.compile("<note-texte\\|texte=(.*?)>",Pattern.MULTILINE);
+    private static Pattern p_h3 = Pattern.compile("\\{\\{\\{\n?(.*?\n*.*?)\\}\\}\\}",Pattern.MULTILINE);
+    private static Pattern p_gras = Pattern.compile("\\{\\{\n?(.*?\n*.*?)\\}\\}",Pattern.MULTILINE);
+    private static Pattern p_italique = Pattern.compile("\\{\n?(.*?\n*.*?)\\}",Pattern.MULTILINE);
+    private static Pattern p_li = Pattern.compile("^- (.*)\n",Pattern.MULTILINE);
+    private static Pattern p_ul = Pattern.compile("(<li>(.*</li>\n<li>.*)*</li>)",Pattern.MULTILINE);
+    private static Pattern p_color1 = Pattern.compile("\\[([a-z\\s]+)\\]",Pattern.MULTILINE);
+    private static Pattern p_color2 = Pattern.compile("\\[/[a-z\\s]+\\]",Pattern.MULTILINE);
+    private static Pattern p_link = Pattern.compile("\\[(.*?)(->)+(.*?)\\]",Pattern.MULTILINE);
+    private static Pattern p_parag = Pattern.compile("(^[^<\n]+.+|.+[^/\n>]+$)",Pattern.MULTILINE);
+    private static Pattern p_parag_b = Pattern.compile("(^<b>.*?</b>$)",Pattern.MULTILINE);
+    private static Pattern p_parag_q = Pattern.compile("(^<q>.*?</q>$)",Pattern.MULTILINE);
+    private static Pattern p_parag_span = Pattern.compile("(^<span class=\".*?\">.*?</span>$)",Pattern.MULTILINE);
+
+    private static Pattern p_rem_parag_ul = Pattern.compile("<p>(</ul>)</p>",Pattern.MULTILINE);
+    private static Pattern p_rem_parag_img = Pattern.compile("<p>( ?<img .*?/>)</p>",Pattern.MULTILINE);
+    private static Pattern p_rem_parag_h3 = Pattern.compile("<p>(<h3>.*?</h3>)</p>",Pattern.MULTILINE);
+    private static Pattern p_rem_parag_marg = Pattern.compile("<p>(<div class=\"marge\">.*</div>)</p>",Pattern.MULTILINE);
+
+
     public void create(Article article)
     {
-        String text = article.getRawtext();
+        String text = article.getChapo() + article.getRawtext();
+        String filename = article.getFilename() + ".html";
+
         text = this.parser(text);
         String html = this.getHtml(article, text);
 
-        String filename = article.getTitre()+".html";
-
         // write buffer in a file
         BufferedWriter out = null;
+        String path = this.OUTPUT_FOLDER + filename;
         try {
-            FileWriter fstream = new FileWriter(this.OUTPUT_FOLDER + filename);
+            FileWriter fstream = new FileWriter(path);
             out = new BufferedWriter(fstream);
             out.append(html);
         } catch (IOException e) {
@@ -32,6 +75,7 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
         } finally {
             if (out != null) try {
                 out.close();
+                System.out.println("Written article html file: " + path);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,102 +87,104 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
     private String parser(String text)
     {
         // Suppression des div
-        text = text.replaceAll("<div.*>", "");
-        text = text.replaceAll("</div>", "");
+        text = p_div1.matcher(text).replaceAll("");
+        text = p_div2.matcher(text).replaceAll("");
 
         // Suppression des <br>
-        text = text.replaceAll("<br\\s?/?>", "");
+        text = p_br.matcher(text).replaceAll("");
 
         // Suppression des <youtube...>
-        text = text.replaceAll("<youtube.*>", "");
+        text = p_ytb.matcher(text).replaceAll("");
 
         //Suppression des <note-image>
-        text = text.replaceAll("<note-image\\d*>", "");
-
+        text = p_noteimage.matcher(text).replaceAll("");
 
         //Suppression des <note-galerie>
-        text = text.replaceAll("<note-galerie\\d*>", "");
+        text = p_notegallerie.matcher(text).replaceAll("");
 
         // Suppression des <album...>
-        text = text.replaceAll("<album.*>", "");
+        text = p_album.matcher(text).replaceAll("");
 
         // Suppression des notes de bas de page [[..]]
-        text = text.replaceAll("\\[\\[.*\\]\\]", "");
+        text = p_notebas.matcher(text).replaceAll("");
 
         // Chapo
-        text = text.replaceAll("<chapo>\n?(.*?)</chapo>", "\n\n<div class=\\\"chapo\"><p>$1<\\/p><\\/div>\n");
+        text = p_chapo.matcher(text).replaceAll("\n\n<div class=\\\"chapo\"><p>$1<\\/p><\\/div>\n");
 
         // Quotes
-        text = text.replaceAll("<quote>\n?(.*?)</quote>", "\n\n<q>$1</q>\n");
+        text = p_quote.matcher(text).replaceAll("\n\n<q>$1</q>\n");
 
         // Poesie
-        text = text.replaceAll("<poesie>\n?(.*?)</poesie>", "\n\n<q>$1</q>\n");
+        text = p_poesie.matcher(text).replaceAll("\n\n<q>$1</q>\n");
 
         // Images
-        text = text.replaceAll("<image=(http://.*?)>", "\n\n<div class=\\\"border\"><img src=\"$1\" alt=\"//\" class=\"miniature\"/></div>\n" +
-                "\n");
+        text = p_image.matcher(text).replaceAll("\n\n<div class=\\\"border\"><img src=\"$1\" alt=\"//\" class=\"miniature\"/></div>\n\n");
 
         // Iframe
-        text = text.replaceAll("<iframe.*?src=\"(.*?)\".*?>.*?</iframe>", "\n" +
-                "\n" +
-                "<div class=\"iframe-wrapper\"><iframe class=\"iframe-content\" src=\"$1\"></iframe><div class=\"iframe-blocker\"></div></div>\n" +
-                "\n");
+        text = p_iframe.matcher(text).replaceAll("\n\n<div class=\"iframe-wrapper\"><iframe class=\"iframe-content\" src=\"$1\"></iframe><div class=\"iframe-blocker\"></div></div>\n\n");
 
         // <note-texte|texte=...
-        text = text.replaceAll("<note-texte\\|texte=(.*?)>", "<div class=\\\"marge\"><div class=\"inner\"><p>$1</p></div></div>\n" +
-                "\n");
+        text = p_notetext.matcher(text).replaceAll("<div class=\\\"marge\"><div class=\"inner\"><p>$1</p></div></div>\n\n");
 
         // H3 : {{{ }}}
-        text = text.replaceAll("\\{\\{\\{\n?(.*?\n*.*?)\\}\\}\\}", "<h3>$1</h3>");
+        text = p_h3.matcher(text).replaceAll("<h3>$1</h3>");
 
         // Gras : {{ }}
-        text = text.replaceAll("\\{\\{\n?(.*?\n*.*?)\\}\\}", "<b>$1</b>");
+        text = p_gras.matcher(text).replaceAll("<b>$1</b>");
 
         // Italique : { }
-        text = text.replaceAll("\\{\n?(.*?\n*.*?)\\}", "<i>$1</i>");
+        text = p_italique.matcher(text).replaceAll("<i>$1</i>");
 
         // <li> : -
-        text = text.replaceAll("^- (.*)\n", "<li><p>$1</p></li>\n");
+        text = p_li.matcher(text).replaceAll("<li><p>$1</p></li>\n");
 
         // Rajout des <ul> autour des <li>
-        text = text.replaceAll("(<li>(.*</li>\n<li>.*)*</li>)", "<ul>\n$1\n</ul>");
+        text = p_ul.matcher(text).replaceAll("<ul>\n$1\n</ul>");
 
         // [couleur]
-        text = text.replaceAll("\\[([a-z\\s]+)\\]", "<span class=\\\"$1\">");
-        text = text.replaceAll("\\[/[a-z\\s]+\\]", "</span>");
+        text = p_color1.matcher(text).replaceAll("<span class=\\\"$1\">");
+        text = p_color2.matcher(text).replaceAll("</span>");
 
         // Link
-        text = text.replaceAll("\\[(.*?)(->)+(.*?)\\]", "<a href=\\\"$3\" class=\"link\">$1</a>");
+        text = p_link.matcher(text).replaceAll("<a href=\\\"$3\" class=\"link\">$1</a>");
 
         // Paragraphes
-        text = text.replaceAll("(^[^<\n]+.+|.+[^/\n>]+)", "<p>$1</p>\n\n");
+        text = p_parag.matcher(text).replaceAll("<p>$1</p>\n\n");
 
         // Paragraphes autour des <b> sur une seule ligne
-        text = text.replaceAll("(^<b>.*?</b>)", "<p>$1</p>\n\n");
+        text = p_parag_b.matcher(text).replaceAll("<p>$1</p>\n\n");
 
         // Paragraphes autour des <q> sur une seule ligne
-        text = text.replaceAll("(^<q>.*?</q>)", "<p>$1</p>\n\n");
+        text = p_parag_q.matcher(text).replaceAll("<p>$1</p>\n\n");
 
-
+        // Paragraphes autour des <span> sur une seule ligne
+        text = p_parag_span.matcher(text).replaceAll("<p>$1</p>\n\n");
 
         //Supprimer les <p> des <ul>, <img>, <h3> et <div marge>
-        text = text.replaceAll("<p>(</ul>)</p>", "$1");
-        text = text.replaceAll("<p>( ?<img .*?/>)</p>", "$1");
-        text = text.replaceAll("<p>(<h3>.*?</h3>)</p>", "$1");
-        text = text.replaceAll("<p>(<div class=\"marge\">.*</div>)</p>", "$1");
-
-        System.out.println(text);
+        text = p_rem_parag_ul.matcher(text).replaceAll("$1");
+        text = p_rem_parag_img.matcher(text).replaceAll("$1");
+        text = p_rem_parag_h3.matcher(text).replaceAll("$1");
+        text = p_rem_parag_marg.matcher(text).replaceAll("$1");
 
         return text;
     }
 
     private String getHtml(Article article, String text)
     {
+        // parse date
+        String date = parseDate(article.getDate());
+
+        // authors
+        String authors = "";
+        for (String s: article.getRawAuthors()){
+            authors += s + "  ";
+        }
+
         String html = ("<html>" +
                         "<head>" +
                             "<meta charset=\"UTF-8\">" +
                             "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">" +
-                            "<title>"+article.getTitre()+"</title>" +
+                            "<title>"+article.getRawTitre()+"</title>" +
                             "<link rel=\"stylesheet\" href=\""+this.CSS_FOLDER+"style.css\" type=\"text/css\">" +
                             "<script src=\"http://code.jquery.com/jquery-1.11.2.min.js\"></script>" +
                             "<script type=\"text/javascript\" src=\""+this.JS_FOLDER+"libjs.js\"></script>" +
@@ -149,8 +195,8 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
                             "<div class=\"container\">" +
                                 "<div class=\"top\">" +
                                     "<div class=\"header\">" +
-                                        "<div class=\"author\">"+article.getRawAuthors()+" - "+article.getDate()+"</div>" +
-                                        "<div class=\"title\">"+article.getTitre()+"</div>" +
+                                        "<div class=\"author\">" + authors + " - " + date + "</div>" +
+                                        "<div class=\"title\">"+article.getRawTitre()+"</div>" +
                                         "<div class=\"sub-title\">"+article.getRawSousTitre()+"</div>" +
                                     "</div>" +
                                 "</div>" +
@@ -162,7 +208,22 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
                     "</html>");
 
         return html;
+    }
 
+    private String parseDate(String dateStr)
+    {
+        SimpleDateFormat formatIn = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat formatOut = new SimpleDateFormat("dd MMMM yyyy");
 
+        String date = "";
+        Date d = null;
+        try {
+            d = formatIn.parse(dateStr);
+            date = formatOut.format(d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return date;
     }
 }
