@@ -1,7 +1,9 @@
 package graphGeneration.generation;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -39,12 +41,16 @@ public class GenGraphs {
     static public final String thumbFolder = "data/img/";
     static public final String thumbExtension = ".png";
     static public final String strabicDBPath = "data/strabic_fr_20150203.sqlite";
-	static private String skosFile ="data/tmp/temp.skos";
-	static private String storageFile = "data/tmp/temp.data";
-	static private String articleFile = "data/tmp/temp.article";
-	static final private String storageFileOut = "data/tmp/storageOut.xml";
-	static final private String graphFile = "data/tmp/graphOut.graphml"; //must have a graphml file extension
+	static public final String folderDataTMP = "data/tmp/";
+	static private String skosFile = folderDataTMP + "temp.skos";
+	static private String storageFile = folderDataTMP + "temp.data";
+	static private String articleFile = folderDataTMP + "temp.article";
+	static final private String storageFileOut = folderDataTMP + "storageOut.xml";
+	static final private String seasonsFilePath = folderDataTMP + "seasons.txt";
+	static final private String graphFile = folderDataTMP + "graphOut.graphml"; //must have a graphml file extension
 	static final private String articleTxtPath = "data/articles/";
+
+	static private List<String> seasonsList = null;
 
 	static boolean validate = false;
 	static private Document skosTree = null;
@@ -71,8 +77,12 @@ public class GenGraphs {
 	 * @param writeArticleFiles true if articles must be written in txt files
      */
     public static void execute(boolean writeArticleFiles) {
+		// CREATE DIRECTORIES IF NOT EXIST
+		new File(folderDataTMP).mkdirs();
+
         // LOAD THE DATA BASE
         allEntries = new GlobalEntriesList();
+		seasonsList = new ArrayList<String>();
         if (!GenGraphs.gui){
             StrabicDataBase.importDB();
             System.out.println("Imported "+ GenGraphs.getAllEntries().getArticlelist().size() +" articles");
@@ -94,6 +104,9 @@ public class GenGraphs {
                 no.analyseConcept();
             }
 
+			//WRITE SEASONS FILE
+			writeUrlSeasonsFile();
+
             //NOW GENERATE THE GRAPH FILE
             GenGraphs.generateGraph(graphFile);
         } else {
@@ -102,6 +115,32 @@ public class GenGraphs {
             htmlgui = new HtmlFrame();
         }
     }
+
+	/**
+	 * Write url seasons in a file
+	 */
+	private static void writeUrlSeasonsFile() {
+		File file = new File(seasonsFilePath);
+		FileOutputStream is = null;
+		PrintStream outf = null;
+
+		try {
+			is = new FileOutputStream(file);
+			outf = new PrintStream(is, true, "UTF-8");
+			for(String urlSeason : getUrlSeasonsList())
+			{
+				outf.println(urlSeason);
+			}
+			System.out.println("Written url seasons file: data/tmp/seasons.txt");
+			is.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public static int getBackupVersionNumber(){
 		numBackupVersion++;
@@ -419,4 +458,6 @@ public class GenGraphs {
 	public static void setArticleFile(String articleFile) {
 		GenGraphs.articleFile = articleFile;
 	}
+
+	public static List<String> getUrlSeasonsList() { return seasonsList; }
 }

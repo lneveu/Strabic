@@ -52,6 +52,11 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
     private static Pattern p_rem_parag_marg = Pattern.compile("<p>(<div class=\"marge\">.*</div>)</p>",Pattern.MULTILINE);
 
 
+    public HTMLBuildArticleImpl() {
+        // CREATE DIRECTORY IF NOT EXIST
+        new File(OUTPUT_FOLDER).mkdirs();
+    }
+
     public void create(Article article)
     {
         String text = article.getChapo() + article.getRawtext();

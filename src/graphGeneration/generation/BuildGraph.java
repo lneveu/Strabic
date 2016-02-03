@@ -196,6 +196,7 @@ public class BuildGraph {
 	private static void writeXMLGraph(Graph g, String filepathsmane) throws IOException{
 		OutputStream so = null;
 		File f = new File(filepathsmane);
+		// create directories if not exist
 		so = new FileOutputStream(f);
 		GraphMLWriter writer = new GraphMLWriter(g);
 		// used only to speedup output...

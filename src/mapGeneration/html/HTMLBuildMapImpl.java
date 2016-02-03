@@ -26,6 +26,11 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
 
     StringBuilder HTMLString = null;
 
+    public HTMLBuildMapImpl() {
+        // CREATE DIRECTORY IF NOT EXIST
+        new File(OUPUT_DIRECTORY).mkdirs();
+    }
+
     @Override
     public void create(Graph graph, String filename) {
         HTMLString = new StringBuilder();

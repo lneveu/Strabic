@@ -289,6 +289,13 @@ public class StrabicDataBase {
 					}
 					if ((id_rubrique >=0) && (id_rubrique < maxEntry)){
 						no.setUrlSaison(urlsSaison[id_rubrique]);
+
+						// add url season in the list
+						if( !GenGraphs.getUrlSeasonsList().contains(urlsSaison[id_rubrique]) )
+						{
+							GenGraphs.getUrlSeasonsList().add(urlsSaison[id_rubrique]);
+						}
+
 						System.out.println("Article id: "+id_article+" Rubrique id: "+ id_rubrique);
 						System.out.println("ARTICLE: "+urls[id_article]+" RUBRIQUE: "+ urlsSaison[id_rubrique]);
 					}
