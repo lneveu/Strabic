@@ -37,8 +37,7 @@ public class UITest extends JFrame {
 
             for(Vertex i : graph.getVertices()) {
                 LayoutData d = (LayoutData) i.getProperty("layout_data");
-                g2.draw(new Line2D.Float(d.getX(),  d.getY(), d.getX(),  d.getY()));
-
+                g2.draw(new Line2D.Float(d.getX()/4,  d.getY()/4, d.getX()/4,  d.getY()/4));
             }
         }
     }

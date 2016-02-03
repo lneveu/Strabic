@@ -15,31 +15,16 @@ import java.io.IOException;
 public class Master {
 
     public static void main(String[] args) throws IOException {
-        // generate graphs
-        GenGraphs.execute();
+        // generate graphs (saisons, auteurs, keyword)
+        GenGraphs.execute(false);
 
-        // algo layout
-        //GenMaps.execute();
+        // apply algorithm layout and generate HTML file for each graph
+        GenMaps.execute();
 
-        //Graph g = GenGraphs.getSaisonGraph();
+        // generate HTML file for earch article
+        //GenArticles.execute();
+
         // frame test
-        //new UITest(g);
-        /*for(Vertex i : g.getVertices()) {
-            LayoutData d = (LayoutData) i.getProperty("layout_data");
-            System.out.println("x: " + d.getX() + " - y: " + d.getY());
-        }*/
-
-
-        /*
-        for(Vertex i : g.getVertices()) {
-            for(String k : i.getPropertyKeys()) {
-                System.out.println(i.getProperty(k));
-            }
-            System.out.println("\n");
-        }
-        */
-
-        GenArticles.execute();
-
+        new UITest(GenGraphs.getSaisonGraph());
     }
 }
