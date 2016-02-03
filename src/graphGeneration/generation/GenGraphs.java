@@ -44,6 +44,7 @@ public class GenGraphs {
 	static private String articleFile = "data/tmp/temp.article";
 	static final private String storageFileOut = "data/tmp/storageOut.xml";
 	static final private String graphFile = "data/tmp/graphOut.graphml"; //must have a graphml file extension
+	static final private String articleTxtPath = "data/articles/";
 
 	static boolean validate = false;
 	static private Document skosTree = null;
@@ -67,8 +68,9 @@ public class GenGraphs {
      * - Write articles in files<br>
      * - Analyse articles<br>
      * - Generate graphML files
+	 * @param writeArticleFiles true if articles must be written in txt files
      */
-    public static void execute() {
+    public static void execute(boolean writeArticleFiles) {
         // LOAD THE DATA BASE
         allEntries = new GlobalEntriesList();
         if (!GenGraphs.gui){
@@ -76,13 +78,16 @@ public class GenGraphs {
             System.out.println("Imported "+ GenGraphs.getAllEntries().getArticlelist().size() +" articles");
 
             // WRITE ARTICLES IN FILES
-            if (GenGraphs.getAllEntries().getArticlelist().size() > 0){
-                for (Article a: GenGraphs.getAllEntries().getArticlelist()){
-                    String filename = "data/articles/"+a.getURLend().trim().replace('/', '_') + ".txt";
-                    System.out.println("Writing file: "+filename);
-                    a.writeInFile(filename);
-                }
-            }
+			if(writeArticleFiles)
+			{
+				if (GenGraphs.getAllEntries().getArticlelist().size() > 0){
+					for (Article a: GenGraphs.getAllEntries().getArticlelist()){
+						String path = articleTxtPath + a.getFilename() + ".txt";
+						System.out.println("Writing file: "+path);
+						a.writeInFile(path);
+					}
+				}
+			}
 
             //ANALYSE THE FILE NOW
             for(Article no: GenGraphs.getAllEntries().getArticlelist()){

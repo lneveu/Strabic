@@ -28,6 +28,7 @@ public class Article {
 	private String rawSousTitre = null;
 	private String rawSurTitre = null;
 	private String chapo = null;
+	private String rawChapo = null;
 	private String date = null;
 	private String thumbnail = null;
 	private String filename = null;
@@ -348,7 +349,6 @@ public class Article {
 	// write the article in a file for generation of the HTML via the perl script
 	public void writeInFile(String filename){
 		if (filename == null) return;
-		setFilename(filename);
 		File file = new File(filename);
 		try {
 			try {
@@ -364,7 +364,7 @@ public class Article {
 						outf.print(s + "   ");
 					}
 					outf.println();
-					outf.println("<chapo>" + getChapo().replace("\n"," ")+ "</chapo>");
+					outf.println(getChapo());
 					outf.print(getRawtext());
 					is.close();
 				} catch (IOException e) {
@@ -443,6 +443,14 @@ public class Article {
 
 	public void setChapo(String chapo) {
 		this.chapo = chapo;
+	}
+
+	public String getRawChapo() {
+		return rawChapo;
+	}
+
+	public void setRawChapo(String rawChapo) {
+		this.rawChapo = chapo;
 	}
 
 	public String getURLend() {
