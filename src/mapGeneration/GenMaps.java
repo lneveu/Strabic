@@ -13,7 +13,7 @@ import mapGeneration.layout.LayoutAlgorithm;
  */
 public class GenMaps {
 
-    public static void execute() {
+    public static void execute(String output_directory) {
         // apply algo
         LayoutAlgorithm algorithm = new FruchtermanReingold();
         algorithm.apply(GenGraphs.getSaisonGraph(), 200);
@@ -22,7 +22,7 @@ public class GenMaps {
 
 
         // generate html view
-        HTMLBuildMap htmlBuilder = new HTMLBuildMapImpl();
+        HTMLBuildMap htmlBuilder = new HTMLBuildMapImpl(output_directory);
         htmlBuilder.create(GenGraphs.getSaisonGraph(), "saisons.html");
         htmlBuilder.create(GenGraphs.getAuteurGraph(), "auteurs.html");
         htmlBuilder.create(GenGraphs.getKeywordsGraph(), "keywords.html");

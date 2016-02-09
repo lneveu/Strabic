@@ -9,13 +9,18 @@ Librairies externes :
 - org.ow2.sat4j.core-2.3.5.jar
 - sqlite-jdbc-3.8.7.jar
 - commons-lang-2.6.jar
+- commons-cli-1.3.1.jar
 
 
-BDD : data/strabic_fr_20150203.sqlite
-
-Fichiers graphml : data/tmp/
-
-Fichiers txt articles : data/articles/
+## Usage
+```
+ -a,--articles <arg>   output articles directory (default:'data/articles/')
+ -d,--db <arg>         database to use (required)
+ -i,--images <arg>     thumbnails directory (default: 'data/img/')
+ -m,--maps <arg>       output maps directory (default: 'data/maps/')
+ -s,--seasons <arg>    seasons url file directory (default: 'data/tmp/')
+ -h,--help             show help
+ ```
 
 ## Master
 (point d'entrée du programme)

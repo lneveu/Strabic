@@ -20,15 +20,17 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
     private static final String PROLOGUE = "prologue.html";
     private static final String EPILOGUE = "epilogue.html";
 
-    private static final String OUPUT_DIRECTORY = "data/maps/";
-
     private static final String TITLE_POSITION[] = {"top-right", "top-left", "bottom-right", "bottom-left"};
     private static final Integer LEN_MAX_TITLE = 25;
     private Random rand = new Random();
 
     StringBuilder HTMLString = null;
 
-    public HTMLBuildMapImpl() {
+    private static String OUPUT_DIRECTORY;
+
+    public HTMLBuildMapImpl(String output_directory) {
+        OUPUT_DIRECTORY = output_directory;
+
         // CREATE DIRECTORY IF NOT EXIST
         new File(OUPUT_DIRECTORY).mkdirs();
     }
@@ -91,7 +93,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         HTMLString.append("<img src=\"");
         HTMLString.append(data_article.getThumbnail());
         HTMLString.append("\" alt=\"");
-        HTMLString.append(data_article.getName());
+        HTMLString.append(data_article.getTitle());
         HTMLString.append("\" style=\"width:inherit;height:inherit\">");
         HTMLString.append("</a>");
 

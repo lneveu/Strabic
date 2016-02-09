@@ -285,7 +285,7 @@ public class StrabicDataBase {
 						// build thumbnail name
 						String urlImage = no.getURLend().trim().replace('/', '_');
 						no.setFilename(urlImage);
-						no.setThumbnail(GenGraphs.thumbFolder + urlImage + GenGraphs.thumbExtension);
+						no.setThumbnail(GenGraphs.getThumbDirectory() + urlImage + GenGraphs.thumbExtension);
 					}
 					if ((id_rubrique >=0) && (id_rubrique < maxEntry)){
 						no.setUrlSaison(urlsSaison[id_rubrique]);

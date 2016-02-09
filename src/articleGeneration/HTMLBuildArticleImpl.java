@@ -14,9 +14,10 @@ import java.util.regex.Pattern;
  */
 public class HTMLBuildArticleImpl implements HTMLBuildArticle{
 
-    private static final String OUTPUT_FOLDER = "data/articles/";
-    private static final String CSS_FOLDER = "../../resources/html/css/";
-    private static final String JS_FOLDER = "../../resources/html/js/";
+    private static final String CSS_FOLDER = "css/";
+    private static final String JS_FOLDER = "js/";
+
+    private static String OUPUT_DIRECTORY;
 
     // Patterns
     private static Pattern p_div1 = Pattern.compile("<div.*>",Pattern.MULTILINE);
@@ -52,9 +53,11 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
     private static Pattern p_rem_parag_marg = Pattern.compile("<p>(<div class=\"marge\">.*</div>)</p>",Pattern.MULTILINE);
 
 
-    public HTMLBuildArticleImpl() {
+    public HTMLBuildArticleImpl(String output_directory) {
+        OUPUT_DIRECTORY = output_directory;
+
         // CREATE DIRECTORY IF NOT EXIST
-        new File(OUTPUT_FOLDER).mkdirs();
+        new File(OUPUT_DIRECTORY).mkdirs();
     }
 
     public void create(Article article)
@@ -67,7 +70,7 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
 
         // write buffer in a file
         BufferedWriter out = null;
-        String path = this.OUTPUT_FOLDER + filename;
+        String path = this.OUPUT_DIRECTORY + filename;
         try {
             FileWriter fstream = new FileWriter(path);
             out = new BufferedWriter(fstream);

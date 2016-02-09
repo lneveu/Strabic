@@ -38,19 +38,19 @@ public class GenGraphs {
 
 	static public final String urlStrabic = "http://strabic.fr/";
     static public final String urlImage = urlStrabic + "IMG/";
-    static public final String thumbFolder = "data/img/";
-    static public final String thumbExtension = ".png";
-    static public final String strabicDBPath = "data/strabic_fr_20150203.sqlite";
+    static public final String thumbExtension = ".jpeg";
 	static public final String folderDataTMP = "data/tmp/";
 	static private String skosFile = folderDataTMP + "temp.skos";
 	static private String storageFile = folderDataTMP + "temp.data";
 	static private String articleFile = folderDataTMP + "temp.article";
 	static final private String storageFileOut = folderDataTMP + "storageOut.xml";
-	static final private String seasonsFilePath = folderDataTMP + "seasons.txt";
 	static final private String graphFile = folderDataTMP + "graphOut.graphml"; //must have a graphml file extension
 	static final private String articleTxtPath = "data/articles/";
 
 	static private List<String> seasonsList = null;
+	static public String thumbDirectory = null;
+	static public String strabicDBPath = null;
+	static private String seasonsFilePath = null;
 
 	static boolean validate = false;
 	static private Document skosTree = null;
@@ -74,11 +74,21 @@ public class GenGraphs {
      * - Write articles in files<br>
      * - Analyse articles<br>
      * - Generate graphML files
+	 * @param db_path path of the strabic database (.sqlite)
+	 * @param seasons_file_directory name of the directory which contains seasons' url file
+	 * @param thumb_directory name of the directory which contains all thumbnails for articles
 	 * @param writeArticleFiles true if articles must be written in txt files
      */
-    public static void execute(boolean writeArticleFiles) {
+    public static void execute(String db_path, String seasons_file_directory,  String thumb_directory, boolean writeArticleFiles) {
+		thumbDirectory = thumb_directory;
+		strabicDBPath = db_path;
+		seasonsFilePath = seasons_file_directory + "seasons.txt";
+
 		// CREATE DIRECTORIES IF NOT EXIST
 		new File(folderDataTMP).mkdirs();
+
+		// CREATE DIRECTORIES IF NOT EXIST
+		new File(seasons_file_directory).mkdirs();
 
         // LOAD THE DATA BASE
         allEntries = new GlobalEntriesList();
@@ -460,4 +470,6 @@ public class GenGraphs {
 	}
 
 	public static List<String> getUrlSeasonsList() { return seasonsList; }
+
+	public static String getThumbDirectory() { return  thumbDirectory; }
 }

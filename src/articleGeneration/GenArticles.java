@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class GenArticles {
 
-    public static void execute()
+    public static void execute(String output_directory)
     {
-        HTMLBuildArticle build = new HTMLBuildArticleImpl();
+        HTMLBuildArticle build = new HTMLBuildArticleImpl(output_directory);
         List<Article> articles = GenGraphs.getAllEntries().getArticlelist();
 
         // build html view for each article
