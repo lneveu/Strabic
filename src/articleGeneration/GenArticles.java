@@ -17,9 +17,12 @@ public class GenArticles {
         List<Article> articles = GenGraphs.getAllEntries().getArticlelist();
 
         // build html view for each article
+        int nbe = 0;
         for(Article a : articles)
         {
             build.create(a);
+            nbe++;
         }
+        System.out.println(nbe + " articles written");
     }
 }

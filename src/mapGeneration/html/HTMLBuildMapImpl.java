@@ -54,7 +54,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         // write buffer in a file
         BufferedWriter out = null;
         try {
-            System.out.println("Written graph HTML file : " + OUPUT_DIRECTORY + filename);
+            System.out.println("Written graph HTML file: " + OUPUT_DIRECTORY + filename);
 
             FileWriter fstream = new FileWriter(OUPUT_DIRECTORY + filename);
             out = new BufferedWriter(fstream);

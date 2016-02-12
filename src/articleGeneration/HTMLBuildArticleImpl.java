@@ -6,6 +6,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -80,7 +81,7 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
         } finally {
             if (out != null) try {
                 out.close();
-                System.out.println("Written article html file: " + path);
+                //System.out.println("Written article html file: " + path);
             } catch (IOException e) {
                 e.printStackTrace();
             }

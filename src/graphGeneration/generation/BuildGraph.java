@@ -87,33 +87,7 @@ public class BuildGraph {
             node3.setProperty("article_data", art_data3);
             node3.setProperty("layout_data", lay_data3);
 
-
-            /*
-			node1.setProperty("name", ns[ns.length - 1]);
-			node1.setProperty("image", urlImage);
-			node1.setProperty("titre", titre);
-			node1.setProperty("auteur", auteur);
-			node1.setProperty("url", url);
-			node1.setProperty("saison", urlSaison);
-			node1.setProperty("filename", filename);
-
-			node2.setProperty("name", ns[ns.length - 1]);
-			node2.setProperty("image", urlImage);
-			node2.setProperty("titre", titre);
-			node2.setProperty("auteur", auteur);
-			node2.setProperty("url", url);
-			node2.setProperty("saison", urlSaison);
-			node2.setProperty("filename", filename);
-
-			node3.setProperty("name", ns[ns.length - 1]);
-			node3.setProperty("image", urlImage);
-			node3.setProperty("titre", titre);
-			node3.setProperty("auteur", auteur);
-			node3.setProperty("url", url);
-			node3.setProperty("saison", urlSaison);
-			node3.setProperty("filename", filename);
-            */
-			System.out.println("Adding node: " + ns[ns.length - 1] + " " + thumbnail);
+			//System.out.println("Adding node: " + ns[ns.length - 1] + " " + thumbnail);
 		}
 		nbe = 0;
 		//Concept
@@ -130,7 +104,7 @@ public class BuildGraph {
                         //Edge e2 = getKeywordsGraph().addEdge(null,n2, n1, Integer.toString(score));
                         ArticleData a1 = (ArticleData) n1.getProperty("article_data");
                         ArticleData a2 = (ArticleData) n2.getProperty("article_data");
-						System.out.println("Adding edge between: " + a1.getName() + " --> " + a2.getName() + " val : " + score  );
+						//System.out.println("Adding edge between: " + a1.getName() + " --> " + a2.getName() + " val : " + score  );
 						nbe++;
 					}
 				}

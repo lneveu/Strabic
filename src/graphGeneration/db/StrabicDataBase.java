@@ -109,11 +109,11 @@ public class StrabicDataBase {
 			int i=0;
 			while ( rs.next() ) {
 				if (i >= maxEntry) break;
-				//				System.out.println("----------------------------------------------------------------------------------");
-				//				System.out.println("----------------------------------" + i + "--------------------------------------------");
-				//				System.out.println("----------------------------------------------------------------------------------");
+				//System.out.println("----------------------------------------------------------------------------------");
+				//System.out.println("----------------------------------" + i + "--------------------------------------------");
+				//System.out.println("----------------------------------------------------------------------------------");
 				int id_rubrique  = rs.getInt("id_rubrique");
-				//				System.out.println("id_rubrique :" + id_rubrique);
+				//System.out.println("id_rubrique :" + id_rubrique);
 
 				String  titre = rs.getString("titre");
 				//				System.out.println("titre :" + titre);
@@ -213,10 +213,10 @@ public class StrabicDataBase {
 				//System.out.println("id_article :" + id_article);
 
 				int id_rubrique  = rs.getInt("id_rubrique");
-				//				System.out.println("id_rubrique :" + id_rubrique);
+				//System.out.println("id_rubrique :" + id_rubrique);
 
 				int id_secteur  = rs.getInt("id_secteur");
-				System.out.println("id_secteur :" + id_secteur);
+				//System.out.println("id_secteur :" + id_secteur);
 
 				String  statut = rs.getString("statut");
 				//System.out.println("statut :" + statut);
@@ -296,8 +296,8 @@ public class StrabicDataBase {
 							GenGraphs.getUrlSeasonsList().add(urlsSaison[id_rubrique]);
 						}
 
-						System.out.println("Article id: "+id_article+" Rubrique id: "+ id_rubrique);
-						System.out.println("ARTICLE: "+urls[id_article]+" RUBRIQUE: "+ urlsSaison[id_rubrique]);
+						//System.out.println("Article id: "+id_article+" Rubrique id: "+ id_rubrique);
+						//System.out.println("ARTICLE: "+urls[id_article]+" RUBRIQUE: "+ urlsSaison[id_rubrique]);
 					}
 					if (listMatches != null){
 						for(int s : listMatches){
@@ -311,7 +311,7 @@ public class StrabicDataBase {
 					}
 					no.setNeedUpdate(true);
 				} else {
-					System.out.println("Already exist: "+titre);
+					//System.out.println("Already exist: "+titre);
 				}	
 			}
 			rs.close();
@@ -388,9 +388,9 @@ public class StrabicDataBase {
 			inreference = false;
 			if (ref.startsWith("im") || ref.startsWith("media")){
 				int id = findAuteurImageId(ref);
-				System.out.println("Looking reference: " + ref +" ("+id+")");
+				//System.out.println("Looking reference: " + ref +" ("+id+")");
 				if ((id >=0) && (id < maxEntry)){
-					System.out.println(documents[id]);
+					//System.out.println(documents[id]);
 					out = out + "<image=" +documents[id] + ">";
 				} 
 			} else {
