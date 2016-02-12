@@ -56,8 +56,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         try {
             System.out.println("Written graph HTML file: " + OUPUT_DIRECTORY + filename);
 
-            FileWriter fstream = new FileWriter(OUPUT_DIRECTORY + filename);
-            out = new BufferedWriter(fstream);
+            out =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(OUPUT_DIRECTORY + filename),"UTF-8"));
             out.append(HTMLString);
         } catch (IOException e) {
             e.printStackTrace();

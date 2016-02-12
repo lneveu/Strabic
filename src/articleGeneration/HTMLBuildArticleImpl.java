@@ -73,8 +73,7 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
         BufferedWriter out = null;
         String path = this.OUPUT_DIRECTORY + filename;
         try {
-            FileWriter fstream = new FileWriter(path);
-            out = new BufferedWriter(fstream);
+            out =  new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path),"UTF-8"));
             out.append(html);
         } catch (IOException e) {
             e.printStackTrace();
