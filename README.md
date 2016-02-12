@@ -10,6 +10,7 @@ Librairies externes :
 - sqlite-jdbc-3.8.7.jar
 - commons-lang-2.6.jar
 - commons-cli-1.3.1.jar
+- guava-18.0.jar (because of JDK < 1.7)
 
 
 ## Usage
