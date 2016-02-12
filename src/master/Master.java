@@ -18,6 +18,7 @@ public class Master {
     private static final String DEFAULT_OUTPUT_ARTICLES_DIRECTORY = "data/articles/";
     private static final String DEFAULT_THUMBS_DIRECTORY = "data/img/";
     private static final String DEFAULT_SEASONS_DIRECTORY = "data/tmp/";
+    private static final String DEFAULT_RESOURCES_DIRECTORY = "resources/maps/";
 
     public static void main(String[] args) throws IOException {
 
@@ -31,6 +32,8 @@ public class Master {
         options.addOption( "a", "articles", true, "output articles directory (default: '" + DEFAULT_OUTPUT_ARTICLES_DIRECTORY + "')");
         options.addOption( "i", "images", true, "thumbnails directory (default: '" + DEFAULT_THUMBS_DIRECTORY + "')");
         options.addOption( "s", "seasons", true, "seasons url file directory (default: '" + DEFAULT_SEASONS_DIRECTORY + "')");
+        options.addOption( "r", "resources", true, "resources directory (must contains epilogue.html and prologue.html) (default: '" + DEFAULT_RESOURCES_DIRECTORY + "')");
+
 
         options.addOption( "h", "help", false, "show help");
 
@@ -58,18 +61,19 @@ public class Master {
                 String output_maps_directory = ensureTrailingSlash(line.getOptionValue("m", DEFAULT_OUTPUT_MAPS_DIRECTORY));
                 String output_articles_directory = ensureTrailingSlash(line.getOptionValue("a", DEFAULT_OUTPUT_ARTICLES_DIRECTORY));
                 String seasons_file_directory = ensureTrailingSlash(line.getOptionValue("s", DEFAULT_SEASONS_DIRECTORY));
+                String resources_directory = ensureTrailingSlash(line.getOptionValue("r", DEFAULT_RESOURCES_DIRECTORY));
 
                 // generate graphs (saisons, auteurs, keyword)
                 GenGraphs.execute(db_path, seasons_file_directory, thumbs_directory, false); // false = don't create graphml files
 
                 // apply algorithm layout and generate HTML file for each graph
-                GenMaps.execute(output_maps_directory);
+                GenMaps.execute(output_maps_directory, resources_directory);
 
                 // generate HTML file for earch article
                 GenArticles.execute(output_articles_directory);
 
                 // frame test
-                new UITest(GenGraphs.getSaisonGraph());
+                //new UITest(GenGraphs.getSaisonGraph());
             }
         }
         catch( ParseException exp ) {

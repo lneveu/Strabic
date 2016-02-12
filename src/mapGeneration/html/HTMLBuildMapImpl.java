@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import utils.Utils;
 
 import java.io.*;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
@@ -16,7 +17,6 @@ import java.util.Random;
  * @author Loann Neveu
  */
 public class HTMLBuildMapImpl implements HTMLBuildMap{
-    private static final String RESOURCES_FOLDER = "resources/maps/";
     private static final String PROLOGUE = "prologue.html";
     private static final String EPILOGUE = "epilogue.html";
 
@@ -27,9 +27,12 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
     StringBuilder HTMLString = null;
 
     private static String OUPUT_DIRECTORY;
+    private static String RESOURCES_FOLDER;
 
-    public HTMLBuildMapImpl(String output_directory) {
+
+    public HTMLBuildMapImpl(String output_directory, String resources_directory) {
         OUPUT_DIRECTORY = output_directory;
+        RESOURCES_FOLDER = resources_directory;
 
         // CREATE DIRECTORY IF NOT EXIST
         new File(OUPUT_DIRECTORY).mkdirs();
@@ -116,7 +119,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
     private void prologue() {
         String content = "";
         try {
-            content = Utils.readFile(RESOURCES_FOLDER + PROLOGUE, StandardCharsets.UTF_8);
+            content = Utils.readFile(RESOURCES_FOLDER + PROLOGUE,  Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -129,7 +132,7 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
     private void epilogue() {
         String content = "";
         try {
-            content = Utils.readFile(RESOURCES_FOLDER + EPILOGUE, StandardCharsets.UTF_8);
+            content = Utils.readFile(RESOURCES_FOLDER + EPILOGUE, Charset.forName("UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
