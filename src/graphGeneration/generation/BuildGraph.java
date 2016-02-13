@@ -58,7 +58,7 @@ public class BuildGraph {
 			if (art != null){
                 thumbnail = art.getThumbnail();
 				titre = art.getTitre().replace('_',' ');
-				url = GenGraphs.getArticlesDirectory() + art.getURLend() + ".html";
+				url = GenGraphs.getArticlesBaseurl() + art.getURLend() + ".html";
 				urlSaison = art.getUrlSaison();
 				filename = art.getFilename();
 				for (String t: art.getKeywords()){

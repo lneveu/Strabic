@@ -15,12 +15,14 @@ Librairies externes :
 
 ## Usage
 ```
- -a,--articles <arg>   output articles directory (default:'data/articles/')
- -d,--db <arg>         database to use (required)
- -i,--images <arg>     thumbnails directory (default: 'data/img/')
- -m,--maps <arg>       output maps directory (default: 'data/maps/')
- -s,--seasons <arg>    seasons url file directory (default: 'data/tmp/')
- -h,--help             show help
+ -a,--articles <arg>            output articles directory (default: 'data/articles/')
+ -bua,--baseurlarticles <arg>   articles baseurl (default: 'data/articles/')
+ -bui,--baseurlimages <arg>     thumbnails baseurl (default: 'data/img/')
+ -d,--db <arg>                  database to use (required)
+ -h,--help                      show help
+ -m,--maps <arg>                output maps directory (default: 'data/maps/')
+ -r,--resources <arg>           resources directory (must contains epilogue.html and prologue.html) (default: 'resources/maps/')
+ -s,--seasons <arg>             seasons url file directory (default: 'data/tmp/')
  ```
 
 ## Master

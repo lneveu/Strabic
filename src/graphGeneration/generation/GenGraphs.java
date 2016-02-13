@@ -48,10 +48,10 @@ public class GenGraphs {
 	static final private String articleTxtPath = "data/articles/";
 
 	static private List<String> seasonsList = null;
-	static public String thumbDirectory = null;
+	static public String thumbBaseurl = null;
 	static public String strabicDBPath = null;
 	static private String seasonsFilePath = null;
-	static private String articles_directory = null;
+	static private String articles_baseurl = null;
 
 	static boolean validate = false;
 	static private Document skosTree = null;
@@ -77,15 +77,15 @@ public class GenGraphs {
      * - Generate graphML files
 	 * @param db_path path of the strabic database (.sqlite)
 	 * @param seasons_file_directory name of the directory which contains seasons' url file
-	 * @param output_articles_directory name of the output directory for articles
-	 * @param thumb_directory name of the directory which contains all thumbnails for articles
+	 * @param article_baseurl baseurl for all articles
+	 * @param thumb_baseurl baseurl for all thumbnails
 	 * @param writeArticleFiles true if articles must be written in txt files
      */
-    public static void execute(String db_path, String seasons_file_directory, String output_articles_directory, String thumb_directory, boolean writeArticleFiles) {
-		thumbDirectory = thumb_directory;
+    public static void execute(String db_path, String seasons_file_directory, String article_baseurl, String thumb_baseurl, boolean writeArticleFiles) {
+		thumbBaseurl = thumb_baseurl;
 		strabicDBPath = db_path;
 		seasonsFilePath = seasons_file_directory + "seasons.txt";
-		articles_directory = output_articles_directory;
+		articles_baseurl = article_baseurl;
 
 		// CREATE DIRECTORIES IF NOT EXIST
 		new File(folderDataTMP).mkdirs();
@@ -474,7 +474,7 @@ public class GenGraphs {
 
 	public static List<String> getUrlSeasonsList() { return seasonsList; }
 
-	public static String getThumbDirectory() { return  thumbDirectory; }
+	public static String getThumbBaseurl() { return  thumbBaseurl; }
 
-	public static String getArticlesDirectory() { return articles_directory; }
+	public static String getArticlesBaseurl() { return articles_baseurl; }
 }
