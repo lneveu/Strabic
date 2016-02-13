@@ -18,9 +18,9 @@ public class FruchtermanReingold implements LayoutAlgorithm {
     private static final float AREA_MULTIPLICATOR = 10000;
 
     // Default properties
-    private float speed = 5;
-    private float gravity = 5;
-    private float area = 4000;
+    private double speed = 5;
+    private double gravity = 2;
+    private float area = 5000;
 
     @Override
     public void apply(Graph graph, int iteration) {
@@ -109,7 +109,7 @@ public class FruchtermanReingold implements LayoutAlgorithm {
                 LayoutData n_data = ((LayoutData) n.getProperty("layout_data"));
 
                 float d = (float) Math.sqrt(n_data.getX() * n_data.getX() + n_data.getY() * n_data.getY());
-                float gf = 0.01f * k * gravity * d;
+                float gf = (float)(0.01f * k * gravity * d);
 
                 if (d > 0) {
                     float newDx = n_data.getDx() - (gf * n_data.getX() / d);
@@ -123,9 +123,9 @@ public class FruchtermanReingold implements LayoutAlgorithm {
             for (Vertex n : nodes) {
                 LayoutData n_data = ((LayoutData) n.getProperty("layout_data"));
 
-                float newDx = n_data.getDx() * (speed / SPEED_DIVISOR);
+                float newDx = (float)(n_data.getDx() * (speed / SPEED_DIVISOR));
                 n_data.setDx(newDx);
-                float newDy = n_data.getDy() * (speed / SPEED_DIVISOR);
+                float newDy = (float)(n_data.getDy() * (speed / SPEED_DIVISOR));
                 n_data.setDy(newDy);
             }
 
@@ -146,8 +146,7 @@ public class FruchtermanReingold implements LayoutAlgorithm {
         }
 
         // center graph
-        float offset = area/5;
-        centerGraph(graph, offset);
+        centerGraph(graph, 100);
     }
 
     private void centerGraph(Graph graph, float offset) {

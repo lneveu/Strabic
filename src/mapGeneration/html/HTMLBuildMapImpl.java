@@ -89,14 +89,14 @@ public class HTMLBuildMapImpl implements HTMLBuildMap{
         // href article
         HTMLString.append("<a href=\"");
         HTMLString.append(data_article.getUrl_article());
-        HTMLString.append("\" style=\"with:inherit;height:inherit\">");
+        HTMLString.append("\" target=\"_parent\" class=\"href-article\">");
 
         // thumbnail
         HTMLString.append("<img src=\"");
         HTMLString.append(data_article.getThumbnail());
         HTMLString.append("\" alt=\"");
         HTMLString.append(data_article.getTitle());
-        HTMLString.append("\" style=\"width:inherit;height:inherit\">");
+        HTMLString.append("\" class=\"thumbnail\">");
         HTMLString.append("</a>");
 
         // title

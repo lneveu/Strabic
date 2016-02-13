@@ -6,6 +6,7 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -218,7 +219,7 @@ public class HTMLBuildArticleImpl implements HTMLBuildArticle{
     private String parseDate(String dateStr)
     {
         SimpleDateFormat formatIn = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        SimpleDateFormat formatOut = new SimpleDateFormat("dd MMMM yyyy");
+        SimpleDateFormat formatOut = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
 
         String date = "";
         Date d = null;
