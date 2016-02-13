@@ -38,7 +38,7 @@ public class GenGraphs {
 
 	static public final String urlStrabic = "http://strabic.fr/";
     static public final String urlImage = urlStrabic + "IMG/";
-    static public final String thumbExtension = ".jpeg";
+    static public final String thumbExtension = ".jpg";
 	static public final String folderDataTMP = "data/tmp/";
 	static private String skosFile = folderDataTMP + "temp.skos";
 	static private String storageFile = folderDataTMP + "temp.data";
