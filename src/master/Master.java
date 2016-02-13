@@ -64,7 +64,7 @@ public class Master {
                 String resources_directory = ensureTrailingSlash(line.getOptionValue("r", DEFAULT_RESOURCES_DIRECTORY));
 
                 // generate graphs (saisons, auteurs, keyword)
-                GenGraphs.execute(db_path, seasons_file_directory, thumbs_directory, false); // false = don't create graphml files
+                GenGraphs.execute(db_path, seasons_file_directory, output_articles_directory, thumbs_directory, false); // false = don't create graphml files
 
                 // apply algorithm layout and generate HTML file for each graph
                 GenMaps.execute(output_maps_directory, resources_directory);
